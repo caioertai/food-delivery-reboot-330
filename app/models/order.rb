@@ -12,6 +12,10 @@ class Order
     @delivered = attrs[:delivered] || false # boolean
   end
 
+  def deliver!
+    @delivered = true
+  end
+
   def delivered?
     @delivered
   end

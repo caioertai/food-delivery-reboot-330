@@ -9,6 +9,10 @@ class Employee
     @role     = attrs[:role]
   end
 
+  def delivery_guy?
+    @role == "delivery_guy"
+  end
+
   def manager?
     @role == "manager"
   end
