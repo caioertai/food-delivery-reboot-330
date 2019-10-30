@@ -5,7 +5,7 @@ class BaseRepository
     @elements    = []
     @csv_path = csv_path
   
-    load_csv
+    load_csv if File.exist?(@csv_path)
     @next_id = @elements.empty? ? 1 : @elements.last.id + 1
   end
 
@@ -18,5 +18,23 @@ class BaseRepository
 
   def all
     @elements
+  end
+
+  private
+
+  def update_csv
+    CSV.open(@csv_path, "wb") do |csv_file|
+      csv_file << @elements.last.headers
+      @elements.each do |element|
+        csv_file << element.to_a
+      end
+    end
+  end
+
+  def load_csv
+    csv_options = { headers: :first_row, header_converters: :symbol }
+    CSV.foreach(@csv_path, csv_options) do |element_attrs|
+      @elements << build_element(element_attrs)
+    end
   end
 end

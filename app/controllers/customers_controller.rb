@@ -13,7 +13,7 @@ class CustomersController
     @customers_view.display(customers)
   end
 
-  def create
+  def add
     name = @customers_view.ask_for("name")
     address = @customers_view.ask_for("address")
     customer = Customer.new(name: name, address: address)
