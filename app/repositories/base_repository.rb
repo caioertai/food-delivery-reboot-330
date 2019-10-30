@@ -2,7 +2,7 @@ require "csv"
 
 class BaseRepository
   def initialize(csv_path)
-    @elements    = []
+    @elements = []
     @csv_path = csv_path
   
     load_csv if File.exist?(@csv_path)
@@ -20,7 +20,15 @@ class BaseRepository
     @elements
   end
 
+  def find(id)
+    @elements.find { |element| element.id == id } 
+  end
+
   private
+
+  def build_element(_)
+    raise Exception, "Must implement #build_element"
+  end
 
   def update_csv
     CSV.open(@csv_path, "wb") do |csv_file|

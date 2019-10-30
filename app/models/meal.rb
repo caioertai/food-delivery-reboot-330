@@ -9,7 +9,6 @@ class Meal
   end
 
   def to_a
-    # [self.id, self.name, self.price]
     [id, name, price]
   end
   

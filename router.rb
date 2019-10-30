@@ -1,8 +1,9 @@
 # TODO: implement the router of your app.
 class Router
-  def initialize(meals_controller, customers_controller, sessions_controller)
+  def initialize(meals_controller, customers_controller, orders_controller, sessions_controller)
     @meals_controller     = meals_controller
     @customers_controller = customers_controller
+    @orders_controller    = orders_controller
     @sessions_controller  = sessions_controller
     @current_employee     = nil
     @running              = true
@@ -36,7 +37,7 @@ class Router
 
   def delivery_guy_dispatch(action)
     case action
-    when 1 then puts "TODO: show undelivered"
+    when 1 then puts @orders_controller.list_undelivered_orders
     when 2 then puts "TODO: mark delivered"
     when 0 then @running = false
     end
@@ -47,6 +48,8 @@ class Router
     puts "2. Add a Meal"
     puts "3. List Customers"
     puts "4. Add customer"
+    puts "5. See all undelivered orders"
+    puts "6. Assign an order to a delivery guy"
     puts "0. Exit"
   end
 
@@ -63,6 +66,8 @@ class Router
     when 2 then @meals_controller.add
     when 3 then @customers_controller.list
     when 4 then @customers_controller.add
+    when 5 then @orders_controller.list_undelivered_orders
+    when 6 then @orders_controller.add
     when 0 then @running = false
     end      
   end
